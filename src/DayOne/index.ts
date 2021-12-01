@@ -10,7 +10,10 @@ reader.on("line", (depth: number) => {
 reader.on("close", ()=> {
     console.log(`Data has been read ${data.length}` );
     console.log(depthFinder(data));
+    console.log(depthFinderWindow(data))
 })
+
+
 let depthFinder = (data: Array<number>) => {
   let depthIncrease: number = 0;
   for (let i = 1; i < data.length; i++) {
@@ -19,4 +22,19 @@ let depthFinder = (data: Array<number>) => {
     }
   }
   return depthIncrease
+}
+
+let windowSum = (data: Array<number>, i) => {
+  if (i+2 < data.length)
+    return data[i] + data[i+1] + data[i+2]
+}
+
+let depthFinderWindow = (data: Array<number>) => {
+  let depthIncrease: number = 0;
+  for (let i = 3; i < data.length; i++) {
+    if (windowSum(data, i) > windowSum(data,i-1)) {
+      depthIncrease++;
+    }
+  }
+  return depthIncrease;  
 }

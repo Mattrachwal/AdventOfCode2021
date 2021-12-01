@@ -10,17 +10,26 @@ reader.on("line", function (depth) {
 reader.on("close", function () {
     console.log("Data has been read ".concat(data.length));
     console.log(depthFinder(data));
+    console.log(depthFinderWindow(data));
 });
 var depthFinder = function (data) {
     var depthIncrease = 0;
     for (var i = 1; i < data.length; i++) {
-        console.log(typeof data[i]);
         if (data[i] > data[i - 1]) {
             depthIncrease++;
-            console.log("".concat(data[i - 1], " < ").concat(data[i], "  ==== ").concat(depthIncrease));
         }
-        else {
-            console.log("".concat(data[i - 1], " > ").concat(data[i], " ==== ").concat(depthIncrease, " - NO INCREASE"));
+    }
+    return depthIncrease;
+};
+var windowSum = function (data, i) {
+    if (i + 2 < data.length)
+        return data[i] + data[i + 1] + data[i + 2];
+};
+var depthFinderWindow = function (data) {
+    var depthIncrease = 0;
+    for (var i = 3; i < data.length; i++) {
+        if (windowSum(data, i) > windowSum(data, i - 1)) {
+            depthIncrease++;
         }
     }
     return depthIncrease;
