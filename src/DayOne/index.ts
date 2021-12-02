@@ -1,9 +1,9 @@
 import * as fs from 'fs';
 import * as rd from 'readline'
 
-var reader = rd.createInterface(fs.createReadStream("./input.txt"))
+let reader = rd.createInterface(fs.createReadStream("./input.txt"))
 
-var data: Array<number> = [];
+let data: Array<number> = [];
 reader.on("line", (depth: number) => {
     data.push(+depth);
 })
